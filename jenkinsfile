@@ -47,7 +47,8 @@ pipeline{
         stage('trivy'){
             steps{
                 script{
-                    sh 'trivy image --severity LOW,MODERATE,HIGH,CRITICAL vootlasaicharan/javaspringboot:v1'
+                    sh 'trivy image --severity LOW,MEDIUM,HIGH,CRITICAL vootlasaicharan/javaspringboot:v1
+'
                 }
             }
         }
