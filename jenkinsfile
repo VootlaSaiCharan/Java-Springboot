@@ -100,15 +100,17 @@ pipeline{
     //     }
     // }
      post {
-        script{
-            emailext(
-                to: 'charanv369@gmail.com',
-                subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """
-                <p>Build #${env.BUILD_NUMBER} of <b>${env.JOB_NAME}</b> has failed.</p>
-                <p>Check the build details: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                """
-            )
+        always{
+            script{
+                emailext(
+                    to: 'charanv369@gmail.com',
+                    subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """
+                        <p>Build #${env.BUILD_NUMBER} of <b>${env.JOB_NAME}</b> has failed.</p>
+                        <p>Check the build details: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                    """
+                )
+            }
         }
     }
 }
