@@ -48,7 +48,6 @@ pipeline{
             steps{
                 script{
                     sh 'trivy image --severity LOW,MEDIUM,HIGH,CRITICAL vootlasaicharan/javaspringboot:v1'
-'
                 }
             }
         }
