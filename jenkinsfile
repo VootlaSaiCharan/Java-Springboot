@@ -46,6 +46,13 @@ pipeline{
                 }
             }
         }
+        stage('trivy'){
+            steps{
+                script{
+                    sh 'trivy image --severity LOW,MODERATE,HIGH,CRITICAL javaspringboot:latest'
+                }
+            }
+        }
         stage('docker run'){
             steps{
                 script{
