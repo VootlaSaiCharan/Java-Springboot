@@ -6,7 +6,7 @@ pipeline{
     }
 
     environment{
-        SCANNER_HOME= tool 'sonar-scanner'
+        SCANNER_HOME= tool 'sonarqube-scanner'
     }
     stages{
         stage('git clone'){
@@ -26,7 +26,7 @@ pipeline{
         }
         stage('sonarqube'){
             steps{
-                withSonarQubeEnv('sonar') {
+                withSonarQubeEnv('sonarqube-server') {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Java-Springboot -Dsonar.projectName=Java-Springboot \
                     -Dsonar.java.binaries=. '''
                 }
@@ -40,33 +40,29 @@ pipeline{
         stage('docker build'){
             steps{
                 script{
-                    withDockerRegistry(credentialsId: 'docker-cred') {
-                        sh 'docker build -t javaspringboot .'
-                    }
+                    sh 'docker build -t vootlasaicharan/javaspringboot:v1 .'
                 }
             }
         }
         stage('trivy'){
             steps{
                 script{
-                    sh 'trivy image --severity LOW,MODERATE,HIGH,CRITICAL javaspringboot:latest'
+                    sh 'trivy image --severity LOW,MODERATE,HIGH,CRITICAL vootlasaicharan/javaspringboot:v1'
                 }
             }
         }
         stage('docker run'){
             steps{
                 script{
-                    withDockerRegistry(credentialsId: 'docker-cred') {
-                        sh 'docker run -d -it --name cont_javaspringboot -p 7000:8080 javaspringboot'  
-                    }
+                        sh 'docker run -d -it --name cont_javaspringboot -p 7000:8080 vootlasaicharan/javaspringboot:v1'
                 }
             }
         }
         stage('docker push'){
             steps{
                 script{
-                    withDockerRegistry(credentialsId: 'docker-cred') {
-                        sh 'docker tag javaspringboot vootlasaicharan/javaspringboot:v1'
+                    withDockerRegistry(credentialsId: 'dockerhub-cred') {
+                        // sh 'docker tag javaspringboot vootlasaicharan/javaspringboot:v1'
                         sh  'docker push vootlasaicharan/javaspringboot:v1'
                     }
                 }
