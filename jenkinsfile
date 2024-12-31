@@ -52,6 +52,15 @@ pipeline{
                 }
             }
         }
+        stage('clean up'){
+            steps{
+                script{
+                    sh 'docker stop $(docker ps -a -q) || true'
+                    sh 'docker rm $(docker ps -a -q) || true'
+                    sh 'docker rmi $(docker images -q) || true'
+                }
+            }
+        }
         stage('docker run'){
             steps{
                 script{
