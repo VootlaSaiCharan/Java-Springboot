@@ -36,7 +36,7 @@ sudo apt-get install trivy -y
 ## To install json 
 sudo apt-get install jq -y
 
-### trivy Commands
+## trivy Commands
 
 trivy image imagename
 
