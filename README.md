@@ -53,3 +53,11 @@ trivy repo repo-url
 trivy k8s --report summary cluster
 
 
+example
+bash '''
+trivy fs --security-checks vuln --severity HIGH,CRITICAL Folder_name_OR_Path
+trivy image --security-checks vuln --severity HIGH,CRITICAL -f table -o Image_Scan.html image_name
+'''
+
+
+
