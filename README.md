@@ -38,15 +38,16 @@ sudo apt-get install trivy -y
 
 trivy image imagename
 
-trivy fs --security-checks vuln,config   Folder_name_OR_Path
+trivy fs --security-checks vuln --severity HIGH,CRITICAL Folder_name_OR_Path
 
 trivy image --severity HIGH,CRITICAL image_name    
 
-<!-- --severity (LOW,MEDIUM,HIGH,CRITICAL) -->
+you can use --severity (LOW,MEDIUM,HIGH,CRITICAL) 
 
 trivy image -f json -o results.json image_name
 
-<!-- sudo apt-get install jq -->
+## To install json 
+sudo apt-get install jq -y
 
 trivy repo repo-url
 
