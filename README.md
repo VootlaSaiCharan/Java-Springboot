@@ -33,6 +33,8 @@ sudo apt-get update -y
 
 sudo apt-get install trivy -y
 
+## To install json 
+sudo apt-get install jq -y
 
 ### trivy Commands
 
@@ -46,9 +48,8 @@ you can use --severity (LOW,MEDIUM,HIGH,CRITICAL)
 
 trivy image -f json -o results.json image_name
 
-## To install json 
-sudo apt-get install jq -y
-
 trivy repo repo-url
 
 trivy k8s --report summary cluster
+
+
